@@ -1,0 +1,57 @@
+<html>
+
+<head>
+  <title>Lab 4, Kerolos Assad's restaurant</title>
+</head>
+
+<body>
+  <script>
+    window.alert("Welcome to Kerolos' restaurant")
+    var name, order, numberOfOrders, now = new Date(), deliveryDate=new Date();
+      hour = now.getHours();
+    name = window.prompt("Please enter your name:", "name");
+
+    while (name=="name" || name==null || name=="") {
+        name = window.prompt("Please enter a valid name:", "name");
+      }
+
+      order = window.prompt("The menu has Pizza, Chicken, and Banana:", "your order");
+
+      while (order!="Pizza" && order!="Chicken" && order!="Banana" && order!="pizza" && order!="chicken" && order!="banana") {
+        order = window.prompt("Please enter a valid order, Pizza, Chicken, or Banana:");
+      }
+
+      numberOfOrders = window.prompt("How many " + order + " do you want?", "1-99");
+
+      while (isNaN(parseInt(numberOfOrders)) || parseInt(numberOfOrders) < 1 || parseInt(numberOfOrders) > 99) {
+        numberOfOrders = window.prompt("Please enter a valid quantity of " + order + ".", "1-99");
+      }
+
+
+        if (hour < 12) {
+          document.write("<h1>Good Morning, ");
+        } else if (hour < 18) {
+          document.write("<h1>Good Afternoon, ");
+        } else {
+          document.write("<h1>Good evening, ");
+        }
+
+        deliveryDate.setDate(now.getDate()+7);
+
+
+        if (parseInt(numberOfOrders) === 1) {
+          document.writeln(name + ", your " + order + " will arrive at: </h1");
+        } else {
+          document.writeln(name + ", your " + numberOfOrders + " " + order + "s will arrive on: </h1>");
+        }
+
+        document.writeln("<h2>" + (deliveryDate.getMonth()+1) + "/" +deliveryDate.getDate()+"/"+deliveryDate.getFullYear()+"</h2>");
+
+
+
+  </script>
+  <p> <img src="https://media.giphy.com/media/Maxxh79xdqIuCLYAgI/giphy.gif" alt="spinning chef hat">
+  <img src="https://media.tenor.com/aaEMtGfZFbkAAAAi/rat-spinning.gif" alt="spinning chef hat"> </p>
+</body>
+
+</html>
