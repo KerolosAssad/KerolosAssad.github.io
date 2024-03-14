@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 5</title>
+</head>
+
+<body>
+
+<div class="jumbotron mt-7 p-5 bg-dark text-white">
+  <div class="row">
+    <div class="col-md-8">
+        <h1 class="display-6">Early Registration Form for Product Testing</h1>
+        <h2 class="lead">Model 8 E-Gloves</h2>
+        <p>Enhanced cybernetic gloves for improved health benefits and dexterity:</p>
+        <p>Uses include:</p>
+        <ul>
+          <li>Hand stability in various disciplines</li>
+          <li>Improve hand strength and grip</li>
+          <li>Quicker and more precious movements</li>
+          <li>Less stress on the hand</li>
+        </ul>
+      <p id="smallText">*These benefits aren't guaranteed and complete side effects are unknown, use with caution and in short periods of time. The company is not responsible for any damages as a result of unintended uses.<p>
+    </div>
+    <div class="col-md-4">
+        <p><img src="glove drawing copy.jpg" class="rounded-circle img-fluid w-75 h-75" alt="Glove product"></p>
+    </div>
+</div>
+</div>
+
+<div class="row">
+  <p><b id="coloredText1"> Personal Information: </b></p>
+  <div class="col-md-3">
+    <form id= "myForm">
+    First name: <input class="form-control form-control-lg" type="text" name="fname" placeholder="first name"><br>
+    last name: <input class="form-control form-control-lg" type="text" name="lname" placeholder="last name"><br>
+  </div>
+  <div class="col-md-3">
+    <form id= "myForm">
+    Date Of Birth (must be at least 18 years old): <input id="dateValues" type="date" class="btn btn-secondary" name="birthday"><br>
+  </div>
+</div>
+<div class="row">
+  <p><b id="coloredText2"> Email Information: </b></p>
+  <div class="col-md-3">
+    <form id= "myForm">
+    Email Address: <input class="form-control form-control-lg" type="text" name="Eaddress" placeholder="example@email.com"><br>
+    Password (must include '!' and '?'): <input class="form-control form-control-lg" type="text" name="Password" placeholder="Password"><br>
+  </form>
+  </div>
+  <div class="col-md-3">
+
+    <div class="alert alert-success" id="notificationMessage" style="display: none;">
+      <strong></strong> 
+  </div>
+
+  <div class="alert alert-info" id="userInformation" style="display: none;">
+    <strong></strong> 
+</div>
+  
+</div>
+</div>
+<button type="button" class="btn btn-secondary" onclick="submitForm()">Submit</button>
+<p>click submit and try me</p>
+
+<hr> This website was created on Thursday, March 7th, 2024, by Kerolos Assad.
+
+
+<script>
+  document.getElementById("smallText").style.fontSize="xx-small"
+  document.getElementById("coloredText1").style.color="#18B48A"
+  document.getElementById("coloredText2").style.color="#18B48A"
+
+
+  var today = new Date();
+  var maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+  var minDate = new Date(today.getFullYear() - 100, today.getMonth(), today.getDate());
+  document.getElementById("dateValues").min = minDate.toISOString().split('T')[0];
+  document.getElementById("dateValues").max = maxDate.toISOString().split('T')[0];
+
+
+ const user = {
+      firstName : "",
+      lastName : "",
+      birthday : "",
+      eaddress : "",
+      password : "",
+
+      setter : function(arr) {
+          this.firstName = arr[0];
+          this.lastName = arr[1];
+          this.birthday = arr[2];
+          this.eaddress = arr[3];
+          this.password = arr[4];
+      },
+
+      displayUser: function(id) {
+    let userFirstName = this.firstName;
+    let userLastName = this.lastName;
+    let userEmailAddress = this.eaddress
+    let hiddenPassword = this.password;
+    let usFormateDob =this.birthday;
+    if(usFormateDob==""){
+      usFormateDob="Missing";
+    }
+    else{
+    usFormateDob=usFormateDob.slice(5,7)+"/"+usFormateDob.slice(8,11)+"/"+usFormateDob.slice(0,4);
+    }
+
+
+    if(userFirstName==""){
+        userFirstName="Missing";
+    }
+
+    else if (userFirstName.includes(" ")){
+      userFirstName=userFirstName+" (includes a space.)";
+    }
+
+    if(userLastName==""){
+        userLastName="Missing";
+    }
+
+    else if (userLastName.includes(" ")){
+      userLastName=userLastName+" (includes a space.)";
+    }
+
+    if(userEmailAddress==""){
+        userEmailAddress="Missing";
+    }
+    
+    else if(!(userEmailAddress.includes('@') && userEmailAddress.includes('.'))){
+      userEmailAddress=userEmailAddress+" (The email is missing '@' or '.')";
+    }
+
+
+    if (hiddenPassword==""){
+      hiddenPassword="Missing";
+    }
+    else if (!(hiddenPassword.includes('!')&&hiddenPassword.includes('?'))){
+      for (let i = 0; i < hiddenPassword.length; i++) {
+        hiddenPassword = hiddenPassword.replace(hiddenPassword.charAt(i), "*");
+      }
+      hiddenPassword=hiddenPassword+" ('!' or '?' is not included)";
+    }
+    else {
+    for (let i = 0; i < hiddenPassword.length; i++) {
+        hiddenPassword = hiddenPassword.replace(hiddenPassword.charAt(i), "*");
+    }
+    }
+    
+    
+    document.getElementById(id).className = "alert alert-info";
+    document.getElementById(id).innerHTML = "<strong>First Name:</strong> " + userFirstName + "<br><strong>Last Name:</strong> " + userLastName + "<br><strong>Birth Day:</strong> " + usFormateDob + "<br><strong>Email Address:</strong> " + userEmailAddress + "<br><strong>Password:</strong> " + hiddenPassword + "<br>";
+    document.getElementById(id).style.display = "block";
+    }
+     
+  };
+
+
+  function successOrFailerMessage(status, message){
+        document.getElementById("notificationMessage").className = status;
+        document.getElementById("notificationMessage").innerHTML = message;
+        document.getElementById("notificationMessage").style.display = "block";
+
+        user.displayUser("userInformation");
+  }
+  
+
+  function submitForm() {
+      var elements = document.getElementById("myForm").elements;
+      var elemsArr1 = Array.from(elements);
+
+      var submission = elemsArr1.map(element => element.value);
+
+      user.setter(submission);
+
+      console.log("First name: " + user.firstName);
+      console.log("Last name: " + user.lastName);
+      console.log("Birthday: " + user.birthday);
+      console.log("E-mail address: " + user.eaddress);
+      console.log("Password: " + user.password);
+
+
+
+      if (user.firstName == "" || user.lastName=="" || user.birthday=="" || user.eaddress=="" || user.password=="") {
+        successOrFailerMessage("alert alert-danger","<strong>Error:</strong> Please fill in the missing information and try again.<br>");
+      } 
+
+      else if (user.firstName.includes(" ") || user.lastName.includes(" ")){
+        successOrFailerMessage("alert alert-danger","<strong>Error:</strong> Please don't include spaces in names and try again.<br>");
+      }
+
+      else if ((!((user.password.includes('!') && user.password.includes('?')))) || (!(user.eaddress.includes('@') && user.eaddress.includes('.')))){
+        successOrFailerMessage("alert alert-danger","<strong>Error:</strong> Please include the needed special characters in the apporpiate fields.<br>");
+      }
+
+      else {
+        successOrFailerMessage("alert alert-success","<strong>Success:</strong> Form received!<br>");
+      }
+
+    
+  }
+
+</script>
+
+</body>
+
+</html>
