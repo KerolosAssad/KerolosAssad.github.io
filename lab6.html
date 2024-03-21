@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 6</title>
+  <style>
+    table,
+    td,
+    th {
+        border: 1px solid;
+        padding: 20px;
+    }
+
+    table {
+        text-align: center;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="jumbotron jumbotron-fluid mt-7 p-5 bg-dark text-white">
+  <div class="row">
+    <div class="col-md-7">
+        <h1 id="Title" class="display-6">Dog Fact Sheet</h1>
+        <h2 id="Subtitle" class="lead">Dogs are man's best friend</h2>
+        <p id="Cfacts">Some facts about dogs:</p>
+        <ul>
+          <table>
+            <tr>
+              <th>factId</th>
+              <th>fact</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td id="fact1">A dog's nose print is unique, much like a person's fingerprint.</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td id="fact2">All dogs dream, but puppies and senior dogs dream more frequently than adult dogs.</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td id="fact3">Human blood pressure goes down when petting a dog. And so does the dog's </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td id="fact4">A study shows that dogs are among a small group of animals who show voluntary unselfish kindness towards others without any reward.</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td id="fact5">Dogs have about 1,700 taste buds. We humans have between 2,000 and 10,000.</td>
+            </tr>
+          </table>
+      <p id="Source">*These facts came from the website "https://www.akc.org/expert-advice/lifestyle/dog-facts/"<p>
+    </div>
+    <div class="col-md-5">
+        <p><img id="Image" class="img-fluid" width="600" hight="400" src="https://clipart-library.com/images_k/dogs-transparent-background/dogs-transparent-background-24.png" alt="Dog Image"></p>
+    </div>
+</div>
+</div>
+
+<button type="button" class="btn btn-primary" onclick="displayCat()">Converter</button>
+<p id="endMessage">click to test an api and convert your preference from dogs to cats</p>
+
+
+<hr> This website was created on Thursday, March 14th, 2024, by Kerolos Assad.
+
+
+<script>
+ 
+
+async function getCat() {
+  const url = 'https://brianobruno.github.io/cats.json';
+  const options = {
+    method: 'GET',
+  };
+  const response = await fetch(url, options);
+  const result = await response.json(); 
+  return result; 
+}
+
+async function displayCat() {
+  document.getElementById("Title").innerHTML="Cat Fact Sheet";
+  document.getElementById("Subtitle").innerHTML="Get to know cats";
+  document.getElementById("Cfacts").innerHTML="Some facts about cats:";
+  
+  const cat = await getCat();
+  const catFactArr = [];
+  cat.facts.forEach(fact => {
+    catFactArr[fact.factId - 1] = fact.text;
+  });
+  for (let i = 1; i <= 5; i++) {
+    document.getElementById("fact" + i).innerHTML = catFactArr[i - 1];
+  }
+
+  document.getElementById("Source").innerHTML="*These facts came from the rest api \"https://brianobruno.github.io/cats.json\"";
+
+
+  document.getElementById("Image").src = cat.catPhoto;
+  
+  document.getElementById("endMessage").innerHTML="Great! now reload the page for dog facts once more!";
+}
+
+
+</script>
+
+</body>
+
+</html>
