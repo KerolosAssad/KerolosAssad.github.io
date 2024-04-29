@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Virtual Museum Project Searching</title>
+</head>
+
+<body>
+
+  <nav class="navbar" style="background-color: #900C3F">
+      <div class="container-fluid">
+          <a class="navbar-brand text-white">Current Page (Search)</a>
+          <ul class="navbar-nav d-flex flex-row me-auto">
+              <li class="nav-item">
+                  <a class="nav-link active me-4 text-white" aria-current="page" href="https://kerolosassad.github.io/VirtualMuseumFinalProjectPart1.html">Game</a>
+              </li>
+              <li class="nav-item me-4">
+                  <a class="nav-link text-white" href="https://kerolosassad.github.io/VirtualMuseumFinalProjectPart2.html">Search</a>
+              </li>
+          </ul>
+      </div>
+  </nav>
+
+  <container>
+      <div class="jumbotron jumbotron-fluid mt-7 p-5 bg-success text-white">
+          <div class="row">
+              <div class="col-lg-6">
+                  <div>
+                      <input id="searchInput" type="text" placeholder="Enter your search term" style="width:85%">
+                      <button onclick="search()">Search</button>
+                  </div>
+                  <p><img id="selectedArtwork" src="https://media.tenor.com/5mz52kzlg6IAAAAi/bloodbros-search.gif" alt="" class="img-fluid" style="width:100%"></p>
+              </div>
+              <div class="col-lg-6">
+                  <h1 id="Title" class="display-6">Metropolitan Virtual Museum Search</h1>
+                  <h2 id="Subtitle" class="lead">Here you can use search terms and IDs (from the game section) to learn more about different art pieces <i><b>Online</b></i></h2>
+                  <p id="smallText">*This website is not endorsed by the official Metropolitan museum and is just a test of the API provided by the museum</p>
+                  <h3 id="rules">Rules:</h3>
+                  <ul>
+                      <li id="imageInfo1">Plugging in any number triggers an ID search for a specific artwork. There is no checks with this type of search so some items might be invalid or have no images.</li>
+                      <li id="imageInfo2">Plugging in any term leads to a query search, which only returns objects with images.</li>
+                      <li id="imageInfo3">Once a query search is started, 6 artworks are loaded in order. Some of these might be invalid objects or have no publicly available images.</li>
+                      <li id="imageInfo4">You can load and return to the old objects using the two <i id="yellowText">yellow</i> buttons at the bottom.</li>
+                      <li id="imageInfo5">You can return back to the game portion of this website using the <b id="wineRedText">wine red</b> Navigation bar at the top.</li>
+                  </ul>
+                  <!--
+                  <p id="artistDisplayName"></p>
+                  <p id="artistDisplayBio"></p>
+                  <p id="dimensions"></p>
+                  <p id="isTimeLineWork"></p>
+                  <p id="objectWikidata_URL"></p>
+                   -->
+                  <h3 id="total"></h3>
+              </div>
+          </div>
+      </div>
+  </container>
+
+
+    <container>
+      <div class="jumbotron jumbotron-fluid mt-7 p-5 bg-info text-white">
+        <div class="row">
+            <div class="col-4">
+              <div class="thumbnail">
+                <button type="button" disabled onclick="swapSelected(1)" id="button1">
+                    <p><img id="imageSelOp1" src="" alt="" class="img-fluid w-200 h-200"></p>
+                </button>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="thumbnail">
+                <button type="button" disabled onclick="swapSelected(2)" id="button2">
+                    <p><img id="imageSelOp2" src="" alt="" class="img-fluid w-100 h-100"></p>
+                </button>
+              </div>
+              </div>
+            <div class="col-4">
+              <div class="thumbnail">
+                <button type="button" disabled onclick="swapSelected(3)" id="button3">
+                    <p><img id="imageSelOp3" src="" alt="" class="img-fluid w-100 h-100"></p>
+                </button>
+              </div>
+            </div>
+        </div>
+        </div>
+    </container>
+
+    <container>
+      <div class="jumbotron jumbotron-fluid mt-7 p-5 bg-info text-white">
+      <div class="row">
+          <div class="col-4">
+            <div class="thumbnail">
+              <button type="button" disabled onclick="swapSelected(4)" id="button4">
+                  <p><img id="imageSelOp4" src="" alt="" class="img-fluid w-100 h-100"></p>
+              </button>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="thumbnail">
+              <button type="button" disabled onclick="swapSelected(5)" id="button5">
+                  <p><img id="imageSelOp5" src="" alt="" class="img-fluid w-100 h-100"></p>
+              </button>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="thumbnail">
+              <button type="button" disabled onclick="swapSelected(6)" id="button6">
+                  <p><img id="imageSelOp6" src="" alt="" class="img-fluid w-100 h-100"></p>
+              </button>
+            </div>
+          </div>
+      </div>
+      </div>
+  </container>
+
+  <container>
+    <div class="row">
+      <div class="col-6">
+        <button id="reRollButton1" type="button" class="btn btn-warning btn-lg btn-block" onclick="backward()" style="width: 100%">
+          <h2>←</h2>
+        </button>
+      </div>
+      <div class="col-6">
+        <button id="reRollButton2" type="button" class="btn btn-warning btn-lg btn-block" onclick="forward()" style= "width: 100%">
+          <h2>→</h2>
+        </button>
+      </div>
+    </div>
+  </container>
+  
+  <container>
+    <div class="row">
+     <div class="col-12">
+      <p id="endMessage">click to get more selection of random artworks</p>  
+     </div>
+    </div>
+  </container>
+    
+
+    <hr>This website was created on Thursday, April 18th, 2024, by Kerolos Assad.
+
+    <script>
+
+        document.getElementById("smallText").style.fontSize = "xx-small";
+        document.getElementById("yellowText").style.color="yellow";
+        document.getElementById("wineRedText").style.color="#900C3F";
+
+        async function getRequestFunction(endpoint) {
+            const url = endpoint;
+            const options = {
+                method: 'GET',
+            };
+            const response = await fetch(url, options);
+            const result = await response.json();
+            return result;
+        }
+        
+
+
+        //global variables
+        const imageIds = ['imageSelOp1', 'imageSelOp2', 'imageSelOp3', 'imageSelOp4', 'imageSelOp5', 'imageSelOp6'];
+        const buttons = ['button1', 'button2', 'button3', 'button4', 'button5', 'button6'];
+        let obj1 = null; //obj1 as a global object storing the data of ids, so it won't be loaded over and over again
+        let validObjects = [];
+        let totalNumOfPieces=0;
+        let currentEndPieceLocal=0;
+        let currentEndPieceApi=0;
+        document.getElementById("reRollButton1").disabled = true;
+        document.getElementById("reRollButton2").disabled = true;
+
+
+
+        async function getObjinOrder(index) {
+            let idArr = obj1.objectIDs;
+            let artId = idArr[index];
+            let obj2 = await getRequestFunction(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${artId}`);
+            return obj2;
+        }
+
+
+
+    async function init(input) {
+
+    if (!isNaN(input)) {
+        document.getElementById("reRollButton1").disabled = true;
+        document.getElementById("reRollButton2").disabled = true;
+        document.getElementById(buttons[0]).disabled = true;
+        document.getElementById("rules").innerText="Stats:"
+        obj1 = await getRequestFunction(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${input}`);
+        if (obj1.message==="ObjectID not found" || obj1.message==="could not parse objectID"){
+          document.getElementById(imageIds[0]).src = "https://upload.wikimedia.org/wikipedia/commons/f/f3/HTTP_404_animated.gif?20210320084423";
+          document.getElementById(imageIds[0]).alt = input;
+          document.getElementById("selectedArtwork").src = "https://upload.wikimedia.org/wikipedia/commons/f/f3/HTTP_404_animated.gif?20210320084423";
+          document.getElementById("imageInfo1").innerText = "ID: Not Found";
+          document.getElementById("imageInfo2").innerText = "Titled: Not Found";
+          document.getElementById("imageInfo3").innerText = "Highlighted: Not Found";
+          document.getElementById("imageInfo4").innerText = "Department: Not Found";
+          document.getElementById("imageInfo5").innerText = "Medium: Not Found";
+          document.getElementById("total").innerText="Total: 0"
+        }
+        else{
+          if (obj1.primaryImageSmall!=""){
+            document.getElementById(imageIds[0]).src = obj1.primaryImageSmall;
+            document.getElementById("selectedArtwork").src = obj1.primaryImage;
+          }
+          else {
+          document.getElementById(imageIds[0]).src = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExazdpcWpyeWlqeTJ4dHI2OTF3dHdjdzJiem4yNXBzdDR5YzN2dnI1aCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26xBIygOcC3bAWg3S/giphy.gif";
+          document.getElementById("selectedArtwork").src = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExazdpcWpyeWlqeTJ4dHI2OTF3dHdjdzJiem4yNXBzdDR5YzN2dnI1aCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26xBIygOcC3bAWg3S/giphy.gif";
+          }
+          document.getElementById(imageIds[0]).alt = input;
+          document.getElementById(buttons[0]).disabled = true;
+          document.getElementById("imageInfo1").innerText = "ID: " + obj1.objectID;
+          document.getElementById("imageInfo2").innerText = "Titled: " + obj1.title;
+          document.getElementById("imageInfo3").innerText = "Highlighted: " + obj1.isHighlight;
+          document.getElementById("imageInfo4").innerText = "Department: " + obj1.department;
+          document.getElementById("imageInfo5").innerText = "Medium: " + obj1.medium;
+          document.getElementById("total").innerText="Total: 1";
+        }
+        for (let i = 1; i < 6; i++) {
+            document.getElementById(imageIds[i]).src = "";
+            document.getElementById(imageIds[i]).alt = "";
+            document.getElementById(buttons[i]).disabled = true;
+        }
+
+    } else {
+        validObjects.length=0;
+        totalNumOfPieces=0;
+        currentEndPieceLocal=0;
+        currentEndPieceApi=0;
+        obj1 = await getRequestFunction(`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=${input}`);
+        let count = 0;
+        let index = 0;
+
+        if (obj1.total!="0"){
+        while (count < 6 && index < obj1.total) {
+            const object = await getObjinOrder(index++);
+            currentEndPieceApi++;
+            if (object.primaryImageSmall != '' && object.message != "Not a valid object" && object.message !="ObjectID not found") {
+                validObjects.push(object);
+                count++;
+            }
+        }
+
+        for (let i = 0; i < 6; i++) {
+            document.getElementById(imageIds[i]).src = validObjects[i].primaryImageSmall;
+            document.getElementById(imageIds[i]).alt = validObjects[i].objectID;
+            document.getElementById(buttons[i]).disabled = false;
+        }
+        document.getElementById("reRollButton1").disabled = true;
+        document.getElementById("reRollButton2").disabled = false;
+        document.getElementById("total").innerText="Approximate Total: "+obj1.total;
+        totalNumOfPieces=totalNumOfPieces+6;
+        currentEndPieceLocal=currentEndPieceLocal+6;
+    }
+    else{
+      document.getElementById("reRollButton1").disabled = true;
+      document.getElementById("reRollButton2").disabled = true;
+      document.getElementById(buttons[0]).disabled = true;
+      document.getElementById("rules").innerText="Stats:"
+      document.getElementById(imageIds[0]).src = "https://upload.wikimedia.org/wikipedia/commons/f/f3/HTTP_404_animated.gif?20210320084423";
+      document.getElementById(imageIds[0]).alt = input;
+      document.getElementById("selectedArtwork").src = "https://upload.wikimedia.org/wikipedia/commons/f/f3/HTTP_404_animated.gif?20210320084423";
+      document.getElementById("imageInfo1").innerText = "ID: Not Found";
+      document.getElementById("imageInfo2").innerText = "Titled: Not Found";
+      document.getElementById("imageInfo3").innerText = "Highlighted: Not Found";
+      document.getElementById("imageInfo4").innerText = "Department: Not Found";
+      document.getElementById("imageInfo5").innerText = "Medium: Not Found";
+      document.getElementById("total").innerText="Total: 0"
+      for (let i = 1; i < 6; i++) {
+            document.getElementById(imageIds[i]).src = "";
+            document.getElementById(imageIds[i]).alt = "";
+            document.getElementById(buttons[i]).disabled = true;
+        }
+    }
+}
+}
+
+
+
+      function search() {
+        for (let i = 0; i < 6; i++) {
+            document.getElementById(imageIds[i]).src = "https://foleys.com.au/content/Images/Services/19-magnifier-zoom-search-outline-transparent.gif";
+            document.getElementById(imageIds[i]).alt = "";
+            document.getElementById(buttons[i]).disabled = true;
+        }
+          const searchTerm = document.getElementById("searchInput").value;
+          init(searchTerm)
+      }
+
+      
+
+
+        async function swapSelected(k) {
+            document.getElementById("rules").innerText="Stats:"
+            let chosenObjId=document.getElementById('imageSelOp'+k).alt;
+            let chosenObj= await getRequestFunction(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${chosenObjId}`);
+            document.getElementById("selectedArtwork").src = chosenObj.primaryImage;
+            document.getElementById("imageInfo1").innerText = "ID: " + chosenObj.objectID;
+            document.getElementById("imageInfo2").innerText = "Titled: " + chosenObj.title;
+            document.getElementById("imageInfo3").innerText = "Highlighted: " + chosenObj.isHighlight;
+            document.getElementById("imageInfo4").innerText = "Department: " + chosenObj.department;
+            document.getElementById("imageInfo5").innerText = "Medium: " + chosenObj.medium;
+        }
+
+       function backward(){
+        for (let i = 0; i < 6; i++) {
+            document.getElementById(imageIds[i]).src = validObjects[currentEndPieceLocal-6+i].primaryImageSmall;
+            document.getElementById(imageIds[i]).alt = validObjects[currentEndPieceLocal-6+i].objectID;
+            document.getElementById(buttons[i]).disabled = false;
+        }
+        currentEndPieceLocal=currentEndPieceLocal-6
+        if (currentEndPieceLocal===0){
+          document.getElementById("reRollButton1").disabled = true;
+        }  
+        document.getElementById("reRollButton2").disabled = false; 
+      }
+
+      async function forward(){
+        for (let i = 0; i < 6; i++) {
+            document.getElementById(imageIds[i]).src = "https://foleys.com.au/content/Images/Services/19-magnifier-zoom-search-outline-transparent.gif";
+            document.getElementById(imageIds[i]).alt = "";
+            document.getElementById(buttons[i]).disabled = true;
+        }
+    if (currentEndPieceLocal === totalNumOfPieces) {
+        let count = 0;
+        let index = currentEndPieceApi;
+
+        while (count < 6 && index < obj1.total) {
+            const object = await getObjinOrder(index++);
+            currentEndPieceApi++;
+            if (object.primaryImageSmall != '' && object.message != "Not a valid object" && object.message != "ObjectID not found") {
+                validObjects.push(object);
+                count++;
+            }
+        }
+
+        for (let i = 0; i < 6; i++) {
+            document.getElementById(imageIds[i]).src = validObjects[currentEndPieceLocal + i].primaryImageSmall;
+            document.getElementById(imageIds[i]).alt = validObjects[currentEndPieceLocal + i].objectID;
+            document.getElementById(buttons[i]).disabled = false;
+        }
+
+        document.getElementById("reRollButton1").disabled = false;
+        totalNumOfPieces += 6;
+        currentEndPieceLocal += 6;
+    } else {
+        for (let i = 0; i < 6; i++) {
+            document.getElementById(imageIds[i]).src = validObjects[currentEndPieceLocal + i].primaryImageSmall;
+            document.getElementById(imageIds[i]).alt = validObjects[currentEndPieceLocal + i].objectID;
+            document.getElementById(buttons[i]).disabled = false;
+        }
+        currentEndPieceLocal += 6;
+        document.getElementById("reRollButton1").disabled = false;
+    }
+}
+
+    
+
+    </script>
+
+</body>
+
+</html>
