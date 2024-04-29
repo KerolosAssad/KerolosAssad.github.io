@@ -42,9 +42,9 @@
                   <ul>
                       <li id="imageInfo1">Plugging in any number triggers an ID search for a specific artwork. There is no checks with this type of search so some items might be invalid or have no images.</li>
                       <li id="imageInfo2">Plugging in any term leads to a query search, which only returns objects with images.</li>
-                      <li id="imageInfo3">Once a query search is started, 6 artworks are loaded in order. Some of these might be invalid objects or have no publicly available images.</li>
-                      <li id="imageInfo4">You can load and return to the old objects using the two <i id="yellowText">yellow</i> buttons at the bottom.</li>
-                      <li id="imageInfo5">You can return back to the game portion of this website using the <b id="wineRedText">wine red</b> Navigation bar at the top.</li>
+                      <li id="imageInfo3">Once a query search is started, 6 artworks will be loaded in order. Some of these might be invalid objects or have no publicly available images.</li>
+                      <li id="imageInfo4">You can load  more and return to the old artworks using the two <i id="yellowText">yellow</i> buttons at the bottom.</li>
+                      <li id="imageInfo5">You can return back to the game portion of this website using the <b id="wineRedText">wine red</b> navigation bar at the top.</li>
                   </ul>
                   
                   <p id="artistDisplayName"></p>
@@ -375,7 +375,7 @@
           }
 
           for (let i = 3; i < 5; i++) {
-                if (obj1[extraInfoId[i]] !== "") {
+                if (chosenObj[extraInfoId[i]] !== "") {
                 document.getElementById(extraInfoId[i]).innerText = messages[i];
                 } else {
                   document.getElementById(extraInfoId[i]).innerText = "";
