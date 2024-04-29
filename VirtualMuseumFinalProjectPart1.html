@@ -149,10 +149,10 @@
 
         async function init() {
             document.getElementById("reRollButton").disabled = true;
-            obj1 = await getRequestFunction('https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=*'); //'*' wild card character
+            obj1 = await getRequestFunction('https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=*'); //'*' wild card character for most number of results
             const imageIds = ['imageSelOp1', 'imageSelOp2', 'imageSelOp3', 'imageSelOp4', 'imageSelOp5', 'imageSelOp6'];
             const buttons = ['button1', 'button2', 'button3', 'button4', 'button5', 'button6'];
-            const objects = await Promise.all(imageIds.map(setImage));
+            const objects = await Promise.all(imageIds.map(getObjFliteredNorm));
             for (let i = 0; i < imageIds.length; i++) {
                 document.getElementById(imageIds[i]).src = objects[i].primaryImageSmall;
                 document.getElementById(imageIds[i]).alt = objects[i].objectID;
@@ -174,16 +174,12 @@
 
         async function getObjFliteredNorm() {
             let newObj = await getRandObj();
+            let newObjId=newObj.objectID+1;
             let includeHighlighted = Math.random() < 0.2;
             while (newObj.primaryImageSmall === '' || newObj.message === "Not a valid object" || newObj.message === "ObjectID not found" || (includeHighlighted && newObj.isHighlight === false)) {
                 newObj = await getRandObj();
             }
             return newObj;
-        }
-
-        async function setImage(imageId) {
-            let fliObj = await getObjFliteredNorm();
-            return fliObj;
         }
 
 
@@ -230,16 +226,16 @@
              }
             switch (score) {
             case 6: 
-            document.getElementById("scoreImg").src = "https://www.funimada.com/assets/images/cards/big/6-22.gif";
+            document.getElementById("scoreImg").src = "https://www.artiestick.com/toons/alphabet/numbers/arg-6-50-trans.gif";
             break;
             case 7: 
-            document.getElementById("scoreImg").src = "https://www.funimada.com/assets/images/cards/big/7-22.gif";
+            document.getElementById("scoreImg").src = "https://www.artiestick.com/toons/alphabet/numbers/arg-7-50-trans.gif";
             break;
             case 8: 
-            document.getElementById("scoreImg").src = "https://www.funimada.com/assets/images/cards/big/8-22.gif";
+            document.getElementById("scoreImg").src = "https://www.artiestick.com/toons/alphabet/numbers/arg-8-50-trans.gif";
             break;
             case 9: 
-            document.getElementById("scoreImg").src = "https://www.funimada.com/assets/images/cards/big/9-22.gif";
+            document.getElementById("scoreImg").src = "https://www.artiestick.com/toons/alphabet/numbers/arg-9-50-trans.gif";
             break;
             case 10: 
             document.getElementById("scoreImg").src = "https://i.giphy.com/jrADhdghPV1ceZMLeP.webp";

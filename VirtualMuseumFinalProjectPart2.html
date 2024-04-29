@@ -46,13 +46,15 @@
                       <li id="imageInfo4">You can load and return to the old objects using the two <i id="yellowText">yellow</i> buttons at the bottom.</li>
                       <li id="imageInfo5">You can return back to the game portion of this website using the <b id="wineRedText">wine red</b> Navigation bar at the top.</li>
                   </ul>
-                  <!--
+                  
                   <p id="artistDisplayName"></p>
                   <p id="artistDisplayBio"></p>
                   <p id="dimensions"></p>
-                  <p id="isTimeLineWork"></p>
+                  <p id="objectURL"></p>
+                  <p><a id="metLink" href=""></a></p>
                   <p id="objectWikidata_URL"></p>
-                   -->
+                  <p><a id="wikiLink" href=""></a></p>
+
                   <h3 id="total"></h3>
               </div>
           </div>
@@ -161,6 +163,8 @@
 
 
         //global variables
+        const extraInfoId=['artistDisplayName', 'artistDisplayBio', 'dimensions', 'objectWikidata_URL', 'objectURL']
+        const messages=['Artist Name: ', 'Artist Display Bio: ', 'Dimensions: ', 'Wikidata URL:', 'Metropolitan Museum website:']
         const imageIds = ['imageSelOp1', 'imageSelOp2', 'imageSelOp3', 'imageSelOp4', 'imageSelOp5', 'imageSelOp6'];
         const buttons = ['button1', 'button2', 'button3', 'button4', 'button5', 'button6'];
         let obj1 = null; //obj1 as a global object storing the data of ids, so it won't be loaded over and over again
@@ -170,6 +174,7 @@
         let currentEndPieceApi=0;
         document.getElementById("reRollButton1").disabled = true;
         document.getElementById("reRollButton2").disabled = true;
+
 
 
 
@@ -199,6 +204,17 @@
           document.getElementById("imageInfo3").innerText = "Highlighted: Not Found";
           document.getElementById("imageInfo4").innerText = "Department: Not Found";
           document.getElementById("imageInfo5").innerText = "Medium: Not Found";
+
+          for (let i = 0; i < 5; i++) {    
+          document.getElementById(extraInfoId[i]).innerText = "";
+         }
+
+         document.getElementById("wikiLink").innerText = ""
+         document.getElementById("wikiLink").href = ""
+          
+        document.getElementById("metLink").innerText = ""
+        document.getElementById("metLink").href = ""
+
           document.getElementById("total").innerText="Total: 0"
         }
         else{
@@ -218,7 +234,43 @@
           document.getElementById("imageInfo4").innerText = "Department: " + obj1.department;
           document.getElementById("imageInfo5").innerText = "Medium: " + obj1.medium;
           document.getElementById("total").innerText="Total: 1";
+
+          for (let i = 0; i < 3; i++) {
+                if (obj1[extraInfoId[i]] !== "") {
+                document.getElementById(extraInfoId[i]).innerText = messages[i] + obj1[extraInfoId[i]];
+                } else {
+                  document.getElementById(extraInfoId[i]).innerText = "";
+                }
+          }
+
+          for (let i = 3; i < 5; i++) {
+                if (obj1[extraInfoId[i]] !== "") {
+                document.getElementById(extraInfoId[i]).innerText = messages[i];
+                } else {
+                  document.getElementById(extraInfoId[i]).innerText = "";
+                }
+          }
+
+          if (obj1[extraInfoId[3]]!=""){
+            document.getElementById("wikiLink").innerText = obj1[extraInfoId[3]]
+            document.getElementById("wikiLink").href = obj1[extraInfoId[3]]
+          }
+          else{
+            document.getElementById("wikiLink").innerText = ""
+            document.getElementById("wikiLink").href = ""
+          }
+
+          if (obj1[extraInfoId[4]]!=""){
+            document.getElementById("metLink").innerText = obj1[extraInfoId[4]]
+            document.getElementById("metLink").href = obj1[extraInfoId[4]]
+          }
+          else{
+            document.getElementById("metLink").innerText = ""
+            document.getElementById("metLink").href = ""
+          }
+
         }
+
         for (let i = 1; i < 6; i++) {
             document.getElementById(imageIds[i]).src = "";
             document.getElementById(imageIds[i]).alt = "";
@@ -254,6 +306,7 @@
         document.getElementById("total").innerText="Approximate Total: "+obj1.total;
         totalNumOfPieces=totalNumOfPieces+6;
         currentEndPieceLocal=currentEndPieceLocal+6;
+
     }
     else{
       document.getElementById("reRollButton1").disabled = true;
@@ -268,6 +321,16 @@
       document.getElementById("imageInfo3").innerText = "Highlighted: Not Found";
       document.getElementById("imageInfo4").innerText = "Department: Not Found";
       document.getElementById("imageInfo5").innerText = "Medium: Not Found";
+      for (let i = 0; i < 5; i++) {    
+          document.getElementById(extraInfoId[i]).innerText = "";
+      }
+
+      document.getElementById("wikiLink").innerText = ""
+      document.getElementById("wikiLink").href = ""
+          
+      document.getElementById("metLink").innerText = ""
+      document.getElementById("metLink").href = ""
+      
       document.getElementById("total").innerText="Total: 0"
       for (let i = 1; i < 6; i++) {
             document.getElementById(imageIds[i]).src = "";
@@ -303,6 +366,39 @@
             document.getElementById("imageInfo3").innerText = "Highlighted: " + chosenObj.isHighlight;
             document.getElementById("imageInfo4").innerText = "Department: " + chosenObj.department;
             document.getElementById("imageInfo5").innerText = "Medium: " + chosenObj.medium;
+            for (let i = 0; i < 3; i++) {
+                if (chosenObj[extraInfoId[i]] !== "") {
+                  document.getElementById(extraInfoId[i]).innerText = messages[i] + chosenObj[extraInfoId[i]];
+                } else {
+                  document.getElementById(extraInfoId[i]).innerText = "";
+                }
+          }
+
+          for (let i = 3; i < 5; i++) {
+                if (obj1[extraInfoId[i]] !== "") {
+                document.getElementById(extraInfoId[i]).innerText = messages[i];
+                } else {
+                  document.getElementById(extraInfoId[i]).innerText = "";
+                }
+          }
+
+          if (chosenObj[extraInfoId[3]]!=""){
+            document.getElementById("wikiLink").innerText = chosenObj[extraInfoId[3]]
+            document.getElementById("wikiLink").href = chosenObj[extraInfoId[3]]
+          }
+          else{
+            document.getElementById("wikiLink").innerText = ""
+            document.getElementById("wikiLink").href = ""
+          }
+
+          if (chosenObj[extraInfoId[4]]!=""){
+            document.getElementById("metLink").innerText = chosenObj[extraInfoId[4]]
+            document.getElementById("metLink").href = chosenObj[extraInfoId[4]]
+          }
+          else{
+            document.getElementById("metLink").innerText = ""
+            document.getElementById("metLink").href = ""
+          }
         }
 
        function backward(){
